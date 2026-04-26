@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/MarpaStudio/DemoScene/DemoScene 2.unity
+    guid: 80a631782480a4a8b999a9bc10a7cf1c
   m_configObjects: {}
