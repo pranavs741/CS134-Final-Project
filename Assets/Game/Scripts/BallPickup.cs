@@ -10,8 +10,11 @@ public class BallPickup : MonoBehaviour
 
     private GameObject heldBall;
 
+    [SerializeField] private float ballSpeed = 10f;
+
     void Update()
     {
+        // picking up ball
         if (Input.GetKeyDown(pickupKey)) {
             if (heldBall == null) {
                 Debug.Log("E is pressed");
@@ -23,6 +26,13 @@ public class BallPickup : MonoBehaviour
         }
         if (heldBall != null) {
             heldBall.transform.position = holdPoint.position;
+        }
+
+        // shooting ball
+        if (Input.GetKeyDown(KeyCode.G)) {
+            if (heldBall != null) {
+                ShootBall();
+            }
         }
 
     }
@@ -62,6 +72,23 @@ public class BallPickup : MonoBehaviour
         }
 
         heldBall = null;
+    }
+
+    void ShootBall() 
+    {
+        heldBall.transform.SetParent(null);
+
+        Rigidbody rb = heldBall.GetComponent<Rigidbody>();
+        if (rb != null) {
+            rb.isKinematic = false;
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 shootDirection = ray.direction.normalized;
+
+            rb.velocity = shootDirection * ballSpeed;
+        }
+
+        heldBall = null; 
     }
 
 
