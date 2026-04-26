@@ -21,6 +21,7 @@ public class BallScoreTracker : MonoBehaviour
     [SerializeField] private float verticalDominanceRatio = 1.0f;
 
     private Rigidbody rb;
+    private BallEffects effects;
     private bool isLive;
     private bool scoredBackboard;
     private bool scoredRim;
@@ -28,6 +29,7 @@ public class BallScoreTracker : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        effects = GetComponent<BallEffects>();
     }
 
     public void BeginShot()
@@ -44,16 +46,21 @@ public class BallScoreTracker : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Collider other = collision.collider;
+        bool isBackboard = other.CompareTag(backboardTag);
+        bool isRim = other.CompareTag(rimTag);
+
+        if (isBackboard && effects != null) effects.PlayBackboardEffect();
+        else if (isRim && effects != null) effects.PlayRimEffect();
+
         if (!isLive || GameManager.Instance == null) return;
 
-        Collider other = collision.collider;
-
-        if (!scoredBackboard && other.CompareTag(backboardTag))
+        if (isBackboard && !scoredBackboard)
         {
             scoredBackboard = true;
             GameManager.Instance.AddScore(backboardPoints, "Backboard");
         }
-        else if (!scoredRim && other.CompareTag(rimTag))
+        else if (isRim && !scoredRim)
         {
             scoredRim = true;
             GameManager.Instance.AddScore(rimPoints, "Rim");

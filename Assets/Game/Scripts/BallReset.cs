@@ -6,11 +6,13 @@ public class BallReset : MonoBehaviour
 
     private Vector3 homePosition;
     private Rigidbody rb;
+    private BallEffects effects;
 
     void Start()
     {
         homePosition = transform.position;
         rb = GetComponent<Rigidbody>();
+        effects = GetComponent<BallEffects>();
     }
 
     void Update()
@@ -33,5 +35,7 @@ public class BallReset : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
+
+        if (effects != null) effects.PlayResetEffect();
     }
 }
