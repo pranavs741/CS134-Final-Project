@@ -16,8 +16,8 @@ A third-person basketball mini-game made in Unity: shoot hoops to reach the win 
 - **WASD**: Move
 - **Mouse**: Look / rotate player
 - **E**: Pick up / drop ball
-- **Left click (hold)**: Charge shot
-- **Left click (release)**: Shoot
+- **Right click (hold)**: Charge shot
+- **Right click (release)**: Shoot
 - **R**: Restart scene
 
 ## Scoring
