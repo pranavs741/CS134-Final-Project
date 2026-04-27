@@ -1,4 +1,4 @@
-# CS134 Final Project — Ghost Hoops
+# CS134 Final Project — Phantom Coliseum
 
 A third-person basketball mini-game made in Unity: shoot hoops to reach the win score while a ghost chases you. Hit the ghost with the ball to stun it and create space.
 
@@ -16,8 +16,8 @@ A third-person basketball mini-game made in Unity: shoot hoops to reach the win 
 - **WASD**: Move
 - **Mouse**: Look / rotate player
 - **E**: Pick up / drop ball
-- **Left click (hold)**: Charge shot
-- **Left click (release)**: Shoot
+- **Right click (hold)**: Charge shot
+- **Right click (release)**: Shoot
 - **R**: Restart scene
 
 ## Scoring
