@@ -104,3 +104,5 @@ For `RestartScene()` to work:
 2. Press Play.
 3. Click **Start** on the start panel.
 
+or go to https://golublue.itch.io/phantom-coliseum
+
