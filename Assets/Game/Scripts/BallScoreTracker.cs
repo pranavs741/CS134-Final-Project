@@ -50,8 +50,16 @@ public class BallScoreTracker : MonoBehaviour
         bool isBackboard = other.CompareTag(backboardTag);
         bool isRim = other.CompareTag(rimTag);
 
-        if (isBackboard && effects != null) effects.PlayBackboardEffect();
-        else if (isRim && effects != null) effects.PlayRimEffect();
+        if (isBackboard)
+        {
+            if (effects != null) effects.PlayBackboardEffect();
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayBackboardHit();
+        }
+        else if (isRim)
+        {
+            if (effects != null) effects.PlayRimEffect();
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayRimHit();
+        }
 
         if (!isLive || GameManager.Instance == null) return;
 

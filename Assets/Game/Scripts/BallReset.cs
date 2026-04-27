@@ -37,5 +37,6 @@ public class BallReset : MonoBehaviour
         }
 
         if (effects != null) effects.PlayResetEffect();
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayBallSpawn();
     }
 }

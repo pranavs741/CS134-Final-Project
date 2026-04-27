@@ -60,12 +60,14 @@ public class GameManager : MonoBehaviour
             startPanel.SetActive(true);
             Time.timeScale = 0f;
             gameStarted = false;
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayMenuMusic();
         }
         else
         {
             if (startPanel != null) startPanel.SetActive(false);
             Time.timeScale = 1f;
             gameStarted = true;
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayGameMusic();
         }
 
         ApplyCursorState();
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour
         if (gameOverLabel != null) gameOverLabel.text = "GAME OVER";
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayLose();
     }
 
     public void StartGame()
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
         gameStarted = true;
         if (startPanel != null) startPanel.SetActive(false);
         Time.timeScale = 1f;
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayGameMusic();
     }
 
     public void RestartScene()
@@ -138,6 +142,7 @@ public class GameManager : MonoBehaviour
         if (winLabel != null) winLabel.text = "YOU WIN!";
         if (winPanel != null) winPanel.SetActive(true);
         Time.timeScale = 0f;
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayWin();
     }
 
     private void ApplyCursorState()
