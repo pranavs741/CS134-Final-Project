@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text winLabel;
     [SerializeField] private TMP_Text gameOverLabel;
+    [SerializeField] private GameObject settingsPanel;
 
     [Header("Behavior")]
     [Tooltip("If true, the game starts paused with the start menu showing.")]
@@ -151,4 +152,16 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = unlock ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = unlock;
     }
+
+    public void OpenOrCloseSetting() {
+        if(startPanel.activeInHierarchy && !settingsPanel.activeInHierarchy) {
+            startPanel.SetActive(false);
+            settingsPanel.SetActive(true);
+        }
+        else {
+            startPanel.SetActive(true);
+            settingsPanel.SetActive(false);
+        }
+    }
+
 }

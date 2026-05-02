@@ -12,9 +12,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxPitch = 70f;
     [SerializeField] private bool lockCursor = true;
 
+    private const string MouseSensitivityPrefKey = "MouseSensitivity";
+
     private Rigidbody rb;
     private float yaw;
     private float pitch;
+
+    public float MouseSensitivity => mouseSensitivity;
+
+    void Awake()
+    {
+        if (PlayerPrefs.HasKey(MouseSensitivityPrefKey))
+            mouseSensitivity = PlayerPrefs.GetFloat(MouseSensitivityPrefKey);
+    }
+
+    public void SetMouseSensitivity(float value)
+    {
+        mouseSensitivity = Mathf.Clamp(value, 0.1f, 20f);
+        PlayerPrefs.SetFloat(MouseSensitivityPrefKey, mouseSensitivity);
+        PlayerPrefs.Save();
+    }
 
     void Start()
     {

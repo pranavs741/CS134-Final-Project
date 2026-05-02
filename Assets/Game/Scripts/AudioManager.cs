@@ -26,8 +26,11 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] [SerializeField] private float musicVolume = 0.5f;
     [Range(0f, 1f)] [SerializeField] private float sfxVolume = 1f;
 
+    private const string MasterVolumePrefKey = "MasterVolume";
+
     private AudioSource musicSource;
     private AudioSource sfxSource;
+    private float masterVolume = 1f;
 
     void Awake()
     {
@@ -38,15 +41,35 @@ public class AudioManager : MonoBehaviour
         }
         Instance = this;
 
+        if (PlayerPrefs.HasKey(MasterVolumePrefKey))
+            masterVolume = PlayerPrefs.GetFloat(MasterVolumePrefKey);
+
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.loop = true;
         musicSource.playOnAwake = false;
-        musicSource.volume = musicVolume;
+        ApplyMusicVolume();
 
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.loop = false;
         sfxSource.playOnAwake = false;
-        sfxSource.volume = sfxVolume;
+        sfxSource.volume = 1f;
+    }
+
+    /// <summary>Overall volume multiplier (0–1). Persisted under MasterVolume.</summary>
+    public void SetMasterVolume(float normalized)
+    {
+        masterVolume = Mathf.Clamp01(normalized);
+        PlayerPrefs.SetFloat(MasterVolumePrefKey, masterVolume);
+        PlayerPrefs.Save();
+        ApplyMusicVolume();
+    }
+
+    public float MasterVolume => masterVolume;
+
+    private void ApplyMusicVolume()
+    {
+        if (musicSource != null)
+            musicSource.volume = musicVolume * masterVolume;
     }
 
     public void PlayMenuMusic() => PlayMusic(menuMusic);
@@ -97,13 +120,13 @@ public class AudioManager : MonoBehaviour
         if (musicSource.clip == clip && musicSource.isPlaying) return;
 
         musicSource.clip = clip;
-        musicSource.volume = musicVolume;
+        ApplyMusicVolume();
         musicSource.Play();
     }
 
     private void PlaySfx(AudioClip clip)
     {
         if (sfxSource == null || clip == null) return;
-        sfxSource.PlayOneShot(clip, sfxVolume);
+        sfxSource.PlayOneShot(clip, sfxVolume * masterVolume);
     }
 }
