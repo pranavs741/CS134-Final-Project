@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text livesLabel;
     [SerializeField] private HeartLivesUI heartLivesUI;
 
+    [Header("Level select")]
+    [SerializeField] private string level1SceneName = "Level 1";
+    [SerializeField] private string level2SceneName = "Level 2";
+
     [Header("Menus")]
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject winPanel;
@@ -21,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text winLabel;
     [SerializeField] private TMP_Text gameOverLabel;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject levelsPanel;
 
     [Header("Behavior")]
     [Tooltip("If true, the game starts paused with the start menu showing.")]
@@ -162,6 +167,29 @@ public class GameManager : MonoBehaviour
             startPanel.SetActive(true);
             settingsPanel.SetActive(false);
         }
+    }
+
+    public void OpenLevel() {
+        if(startPanel.activeInHierarchy && !levelsPanel.activeInHierarchy) {
+            startPanel.SetActive(false);
+            levelsPanel.SetActive(true);
+        }
+        else {
+            startPanel.SetActive(true);
+            levelsPanel.SetActive(false);
+        }
+    }
+
+    public void LoadLevel1()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(level1SceneName);
+    }
+
+    public void LoadLevel2()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(level2SceneName);
     }
 
 }
