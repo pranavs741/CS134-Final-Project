@@ -22,6 +22,7 @@ public class BallScoreTracker : MonoBehaviour
 
     private Rigidbody rb;
     private BallEffects effects;
+    private BallReset ballReset;
     private bool isLive;
     private bool scoredBackboard;
     private bool scoredRim;
@@ -30,6 +31,7 @@ public class BallScoreTracker : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         effects = GetComponent<BallEffects>();
+        ballReset = GetComponent<BallReset>();
     }
 
     public void BeginShot()
@@ -80,10 +82,11 @@ public class BallScoreTracker : MonoBehaviour
         if (!isLive || GameManager.Instance == null) return;
         if (!other.CompareTag(hoopTag)) return;
 
-        if (!IsFallingThroughHoop()) return;
+        // if (!IsFallingThroughHoop()) return;
 
         GameManager.Instance.AddScore(hoopPoints, "Hoop");
         EndShot();
+        if (ballReset != null) ballReset.ResetToHome();
     }
 
     private bool IsFallingThroughHoop()

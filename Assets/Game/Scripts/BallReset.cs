@@ -26,7 +26,7 @@ public class BallReset : MonoBehaviour
         }
     }
 
-    void ResetToHome()
+    public void ResetToHome()
     {
         transform.position = homePosition;
 
